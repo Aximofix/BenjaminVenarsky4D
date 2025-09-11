@@ -1,0 +1,18 @@
+﻿@model List<UserInfo>
+
+<table class="table1 a2">
+    <tr>
+        <th>Meno</th>
+        <th>Priezvisko</th>
+        <th>Email</th>
+        <th>Telefón</th>
+    </tr>
+    @foreach(var user in Model){
+        <tr>
+            <td>@user.Name</td>
+            <td>@user.LastName</td>
+            <td>@user.Email</td>
+            <td>@user.Phone</td>
+        </tr>
+    }
+</table>

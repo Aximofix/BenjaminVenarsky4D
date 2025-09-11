@@ -114,3 +114,29 @@ body {
         grid-template-columns: repeat(1, 1fr)
     }
 }
+
+/*Uloha4*/
+
+.table1 {
+    margin: auto;
+    text-align: center;
+    border: solid 2px;
+    max-width: 65%;
+}
+
+.table1 th {
+    background-color: lightblue;
+    border: solid black 2px;
+    padding: 7px 20px;
+}
+
+.table1 td {
+    border: solid 2px;
+    padding: 7px 20px;
+}
+
+.a2 {
+    max-width: 100%;
+    margin-top: 50px;
+    margin-bottom: 75px;
+}
