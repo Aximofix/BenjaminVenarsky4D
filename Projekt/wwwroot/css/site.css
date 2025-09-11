@@ -82,3 +82,35 @@ body {
     border: 2px solid black;
     border-radius: 100%;
 }
+
+
+/*Uloha3*/
+.clenovia {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.p1 {
+    width: 90%;
+    height: 90%;    
+    margin: auto;
+    min-width: fit-content;
+}
+.p1:hover {
+    width: 90%;
+    height: 90%;    
+    margin: auto;
+    min-width: fit-content;
+}
+
+@media(max-width: 1300px) {
+    .clenovia {
+        grid-template-columns: repeat(2, 1fr)
+    }
+}
+
+@media(max-width: 870px){
+    .clenovia {
+        grid-template-columns: repeat(1, 1fr)
+    }
+}

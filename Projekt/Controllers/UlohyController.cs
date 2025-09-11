@@ -13,5 +13,10 @@ namespace Projekt.Controllers
         {
             return View();
         }
+
+        public IActionResult Uloha3()
+        {
+            return View();
+        }
     }
 }
