@@ -8,5 +8,10 @@ namespace Projekt.Controllers
         {
             return View();
         }
+
+        public IActionResult Uloha2()
+        {
+            return View();
+        }
     }
 }
