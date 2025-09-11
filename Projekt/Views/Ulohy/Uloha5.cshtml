@@ -1,0 +1,15 @@
+﻿@model List<UserInfo>
+
+<div class="center clenovia">
+    @for (var i = 0; i < Model.Count(); i++)
+    {
+        <div class="center">
+            <div class="profile p1">
+                <img src="/img/Man.webp" alt="Man" class="img1" />
+                <h1>@Model[i].Name @Model[i].LastName</h1>
+                <p>@Model[i].Email</p>
+                <p>@Model[i].Phone</p>
+            </div>
+        </div>
+    }
+</div>
