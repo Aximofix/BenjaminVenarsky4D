@@ -145,3 +145,7 @@ body {
     border-radius: 15px;
     padding: 15px;
 }
+
+#txtar {
+    border: 1px solid black;
+}

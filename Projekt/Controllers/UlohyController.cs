@@ -111,5 +111,10 @@ namespace Projekt.Controllers
         {
             return View();
         }
+
+        public IActionResult Uloha8()
+        {
+            return View();
+        }
     }
 }

@@ -15,3 +15,14 @@ function Pctklik() {
     }
     document.getElementById("pctklk").innerHTML = `Počet kliknutí: ${klk}`
 }
+
+document.getElementById("txtar").addEventListener("input", (event) => {
+        var txt = document.getElementById("txtar").value;
+        document.getElementById("txtch").innerHTML = `Počet znakov: ${txt.length}`;
+        if (txt.length >= 20) {
+            document.getElementById("txtar").style.border = "1px solid green";
+        }
+        else {
+            document.getElementById("txtar").style.border = "1px solid red";
+        }
+    });
