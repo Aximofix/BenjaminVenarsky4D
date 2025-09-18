@@ -106,5 +106,10 @@ namespace Projekt.Controllers
         {
             return View();
         }
+
+        public IActionResult Uloha7()
+        {
+            return View();
+        }
     }
 }

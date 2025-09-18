@@ -140,3 +140,8 @@ body {
     margin-top: 50px;
     margin-bottom: 75px;
 }
+
+#changebg {
+    border-radius: 15px;
+    padding: 15px;
+}
