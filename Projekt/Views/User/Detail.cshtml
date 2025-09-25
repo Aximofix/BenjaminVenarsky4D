@@ -1,0 +1,15 @@
+﻿@model UserInfo
+
+@foreach(UserInfo user in ViewBag.users){
+    <br />
+    <h2>User @user.Name @user.LastName</h2>
+    <h3>@(user.Name)'s Email: @user.Email</h3>
+    <h3>@(user.Name)'s Age: @user.Age</h3>
+    <h3>@(user.Name)'s Phone: @user.Phone</h3>
+    <h3>@(user.Name)'s Password: @user.Password</h3>
+    <h3>@(user.Name)'s Subjects:</h3>
+    @foreach(var predmet in user.Predmety){
+        <p>@predmet</p>
+    }
+    <br />
+}

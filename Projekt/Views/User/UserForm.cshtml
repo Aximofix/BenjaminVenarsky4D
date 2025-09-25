@@ -1,0 +1,39 @@
+﻿@model UserInfo
+
+<div class="lglayout">
+	<div class="login">
+		<form asp-controller="User" asp-action="UserForm" method="post">
+			<h1>Sign In</h1>
+			<br />
+			<label class="lstxt" asp-for="Email">Email</label>
+			<input class="ls" type="email" name="Email" id="Email" autocomplete="off" value="@ViewBag.gm" />
+			<br /><br />
+			<label class="lstxt" asp-for="Name">Name</label>
+			<input class="ls" type="text" name="Name" id="Name" autocomplete="off" value="@ViewBag.name" />
+			<br /><br />
+			<label class="lstxt" asp-for="LastName">Lastname</label>
+			<input class="ls" type="text" name="LastName" id="LastName" autocomplete="off" value="@ViewBag.lastname" />
+			<br /><br />
+			<label class="lstxt" asp-for="Age">Age</label>
+			<input class="ls" type="number" name="Age" id="Age" min="15" max="120" />
+			<br /><br />
+			<label class="lstxt" asp-for="Phone">Phone</label>
+			<input class="ls" type="tel" name="Phone" id="Phone" autocomplete="off" />
+			<br /><br />
+			<label class="lstxt" asp-for="Password">Password</label>
+			<input class="ls" type="password" name="Password" id="Password" value="@ViewBag.ps" />
+			<br /><br />
+			<input type="hidden" asp-for="Helpfull" name="Helpfull" id="predmety" />
+			<label class="lstxt" for="predmet">Subject</label>
+			<input class="ls" type="text" name="predmet" id="predmet" /><br />
+			<button type="button" class="lsbtn" onclick="AddToList()">Add</button>
+			<br /><br />
+			@* <p class="lstxt" id="error" name="error">@ViewBag.Error</p> *@
+			<button type="submit" class="ls">Send</button>
+		</form>
+	</div>
+	<div>
+		<h1>Subjects:</h1>
+		<div id="subjects"></div>
+	</div>
+</div>
