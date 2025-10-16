@@ -161,12 +161,12 @@ body {
     margin-top: 70px;
     width: 500px;
     height: 720px;
-    text-align: center;
     border-radius: 30px;
     border: solid 1px #333;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-align: center;
 }
 
 .ls {
@@ -175,8 +175,14 @@ body {
     border-radius: 12px;
 }
 
+#error {
+    padding-bottom: 0px;
+    color: red;
+    justify-self: center;
+}
+
 .lstxt {
-    width: 160px;
+    width: 200px;
     padding: 10px;
     font-size: 17.5px;
 }

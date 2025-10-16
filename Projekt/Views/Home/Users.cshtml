@@ -2,32 +2,20 @@
 
 @model List<UserEntity>
 
-<table>
+<table class="table">
     <thead>
         <tr>
-            <td>
-                Id
-            </td>
-            <td>
-                Name
-            </td>
-            <td>
-                Email
-            </td>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Email</td>
         </tr>
     </thead>
     <tbody>
         @foreach(var user in Model) {
             <tr>
-                <td>
-                    @user.Id
-                </td>
-                <td>
-                    @user.Name
-                </td>
-                <td>
-                    @user.Email
-                </td>
+                <td>@user.Id</td>
+                <td><a href="@Url.Action("UserDetail", "Home", new{ userPublicId = user.PublicId } )">@user.Name</a></td>
+                <td>@user.Email</td>
             </tr>
         }
     </tbody>
