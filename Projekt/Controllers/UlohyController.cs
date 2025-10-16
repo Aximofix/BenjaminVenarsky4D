@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Projekt.Models;
+using UserApp.DataLayer;
 
 namespace Projekt.Controllers
 {
@@ -114,7 +115,12 @@ namespace Projekt.Controllers
 
         public IActionResult Uloha8()
         {
-            return View();
+            using (var db = new AppDbContext())
+            {
+                //db.Database.EnsureCreated();
+                ViewBag.users = db.Users.ToList();
+                return View();
+            }
         }
     }
 }

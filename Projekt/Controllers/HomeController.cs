@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Projekt.Models;
+using UserApp.DataLayer.Entities;
 
 namespace Projekt.Controllers
 {
@@ -10,6 +11,7 @@ namespace Projekt.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
+            UserEntity user = new UserEntity();
             _logger = logger;
         }
 

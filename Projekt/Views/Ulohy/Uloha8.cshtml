@@ -1,3 +1,7 @@
-﻿<p>Správa (min 20 znakov)</p>
-<textarea id="txtar"></textarea>
-<p id="txtch">Počet znakov: 0</p>
+﻿@* <p>Správa (min 20 znakov)</p> *@
+@* <textarea id="txtar"></textarea> *@
+@* <p id="txtch">Počet znakov: 0</p> *@
+
+@foreach(var u in ViewBag.users){
+    <p>Id: @(u.Id), Name: @(u.Name), Email: @(u.Email)</p>
+}
