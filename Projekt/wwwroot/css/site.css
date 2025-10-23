@@ -188,8 +188,19 @@ body {
 }
 
 .lsbtn {
+    text-align: center;
+    width: 85px;
+    padding: 10px 15px;
+    margin: 10px 0px 0px 0px;
+    border-radius: 12px;
+}
+
+.del {
+    background-color: red;
+    color: white;
     width: 75px;
     padding: 10px 15px;
     margin: 10px 0px 0px 0px;
     border-radius: 12px;
+    border: none;
 }

@@ -53,6 +53,16 @@ namespace Projekt.Controllers
             return View(userList);
         }
 
+        [HttpPost]
+        public IActionResult Users(Guid Id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.PublicId == Id);
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+            var userList = _context.Users.ToList();
+            return View(userList);
+        }
+
         public IActionResult UserDetail(Guid userPublicId)
         {
             var user = _context.Users.FirstOrDefault(u => u.PublicId == userPublicId);
@@ -106,6 +116,34 @@ namespace Projekt.Controllers
 
             return View();
         }
+
+        public IActionResult Update(Guid Id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.PublicId == Id);
+            var model = new UpdateModel(){ Id = Id, UserName = user.Name };
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Update(UpdateModel user)
+        {
+            if (user.Email == null || user.Email == "")
+            {
+                ViewBag.Error = "Blank input!";
+                var model = new UpdateModel() { Id = user.Id, UserName = user.UserName };
+                return View(model);
+            }
+            else
+            {
+                var u = _context.Users.FirstOrDefault(u => u.PublicId == user.Id);
+                u.Email = user.Email;
+                _context.Update(u);
+                _context.SaveChanges();
+                return RedirectToAction("Users");
+            }
+        }
+
+
 
     }
 }

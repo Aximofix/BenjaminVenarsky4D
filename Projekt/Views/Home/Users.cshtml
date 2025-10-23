@@ -8,6 +8,8 @@
             <td>Id</td>
             <td>Name</td>
             <td>Email</td>
+            <td>Update User</td>
+            <td>Delete User</td>
         </tr>
     </thead>
     <tbody>
@@ -16,6 +18,13 @@
                 <td>@user.Id</td>
                 <td><a href="@Url.Action("UserDetail", "Home", new{ userPublicId = user.PublicId } )">@user.Name</a></td>
                 <td>@user.Email</td>
+                <td><a class="lsbtn" href="@Url.Action("Update", "Home", new{ Id = user.PublicId } )">Update</a></td>
+                <td>
+                    <form method="post" action="Users">
+                        <input type="hidden" name="Id" value="@user.PublicId" />
+                        <button type="submit" class="del">Delete</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

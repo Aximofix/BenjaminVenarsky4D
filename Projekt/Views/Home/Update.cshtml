@@ -1,0 +1,15 @@
+﻿@model UpdateModel
+
+<div class="lglayout">
+	<div class="login">
+		<form asp-controller="Home" asp-action="Update" method="post">
+			<h1>Update User @Model.UserName</h1>
+			<input type="hidden" asp-for="Id" name="Id" id="Id" value="@Model.Id" />
+			<input type="hidden" asp-for="UserName" name="UserName" id="UserName" value="@Model.UserName" />
+			<label class="lstxt" asp-for="Email">Email</label><br />
+			<input class="ls" type="text" name="Email" id="Email" />
+			<p class="lstxt" id="error" name="error">@ViewBag.Error</p>
+			<button type="submit" class="ls btnn">Send</button>
+		</form>
+	</div>
+</div>
