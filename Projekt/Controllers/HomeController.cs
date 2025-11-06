@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using BusinessLayer.Interfaces.Service;
+using Common.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Projekt.Models;
 using UserApp.DataLayer;
@@ -10,11 +12,13 @@ namespace Projekt.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly AppDbContext _context;
+        private readonly IUserService _userService;
 
-        public HomeController(ILogger<HomeController> logger, AppDbContext context)
+        public HomeController(ILogger<HomeController> logger, AppDbContext context, IUserService userService)
         {
             _logger = logger;
             _context = context;
+            _userService = userService;
 
         }
 
@@ -34,9 +38,9 @@ namespace Projekt.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Users()
+        public async Task<IActionResult> Users()
         {
-            var userList = _context.Users.ToList();
+            var userList = await _userService.GetAllAsync();
 
             //var userList = new List<UserEntity>()
             //{
@@ -125,8 +129,11 @@ namespace Projekt.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(UpdateModel user)
+        public async Task<IActionResult> Update(UpdateModel user)
         {
+            //var u = new UserDTO() { PublicId = new Guid(), Email = user.Email, Name = user.UserName };
+            //var isCreated = 0;
+
             if (user.Email == null || user.Email == "")
             {
                 ViewBag.Error = "Blank input!";
