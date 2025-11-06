@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLayer.Interfaces.Services
+namespace BusinessLayer.Interfaces.Service
 {
-    public interface IUserServices
+    public interface IUserService
     {
         Task<List<UserDTO>> GetAllAsync();
         Task<UserDTO> GetByPublicIdAsync(Guid publicId);

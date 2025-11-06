@@ -1,5 +1,6 @@
-﻿using BusinessLayer.Interfaces.Services;
+﻿using BusinessLayer.Interfaces.Service;
 using Common.DTO;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using UserApp.DataLayer;
 
 namespace BusinessLayer.Services
 {
-    public class UserService : IUserServices
+    public class UserService : IUserService
     {
         private readonly AppDbContext _context;
 
@@ -30,7 +31,22 @@ namespace BusinessLayer.Services
 
         public async Task<List<UserDTO>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var userList = await _context.Users.ToListAsync();
+            var userDTOList = new List<UserDTO>();
+
+            foreach (var user in userList)
+            {
+                var userDTO = new UserDTO()
+                {
+                    PublicId = user.PublicId,
+                    Name = user.Name,
+                    Email = user.Email
+                };
+
+                userDTOList.Add(userDTO);
+            }
+
+            return userDTOList;
         }
 
         public async Task<UserDTO> GetByPublicIdAsync(Guid publicId)
