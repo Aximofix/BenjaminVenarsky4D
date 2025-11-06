@@ -1,0 +1,46 @@
+﻿using BusinessLayer.Interfaces.Services;
+using Common.DTO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UserApp.DataLayer;
+
+namespace BusinessLayer.Services
+{
+    public class UserService : IUserServices
+    {
+        private readonly AppDbContext _context;
+
+        public UserService(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<bool> CreateAsync(UserDTO model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> DeleteAsync(Guid publicId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<UserDTO>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<UserDTO> GetByPublicIdAsync(Guid publicId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> UpdateAsync(UserDTO model)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
