@@ -1,4 +1,4 @@
-using BusinessLayer.Interfaces.Service;
+ï»¿using BusinessLayer.Interfaces.Service;
 using BusinessLayer.Services;
 using UserApp.DataLayer;
 using UserApp.DataLayer.Entities;
@@ -21,9 +21,9 @@ using (var db = new AppDbContext())
     //var user = new UserEntity { Id = 3, Name = "Stephens Nanni", Email = "stephensnanni@example.com", PublicId = Guid.NewGuid() };
     //db.Users.Add(user);
     //db.SaveChanges();
-    //Console.WriteLine($"Používate¾ {user.Name} bol pridaný s ID {user.Id}");
+    //Console.WriteLine($"PouÅ¾Ã­vateÄ¾ {user.Name} bol pridanÃ½ s ID {user.Id}");
 
-    //Console.WriteLine("\nVšetci používatelia:");
+    //Console.WriteLine("\nVÅ¡etci pouÅ¾Ã­vatelia:");
     //var users = db.Users.ToList();
     //foreach (var u in users)
     //{
