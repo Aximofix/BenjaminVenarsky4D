@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Threading.Tasks;
 using BusinessLayer.Interfaces.Service;
 using Common.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,7 @@ namespace Projekt.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [HttpGet]
         public async Task<IActionResult> Users()
         {
             var userList = await _userService.GetAllAsync();
@@ -58,18 +60,16 @@ namespace Projekt.Controllers
         }
 
         [HttpPost]
-        public IActionResult Users(Guid Id)
+        public async Task<IActionResult> Users(Guid Id)
         {
-            var user = _context.Users.FirstOrDefault(u => u.PublicId == Id);
-            _context.Users.Remove(user);
-            _context.SaveChanges();
-            var userList = _context.Users.ToList();
+            await _userService.DeleteAsync(Id);
+            var userList = await _userService.GetAllAsync();
             return View(userList);
         }
 
-        public IActionResult UserDetail(Guid userPublicId)
+        public async Task<IActionResult> UserDetail(Guid userPublicId)
         {
-            var user = _context.Users.FirstOrDefault(u => u.PublicId == userPublicId);
+            var user = await _userService.GetByPublicIdAsync(userPublicId);
             return View(user);
         }
 
@@ -80,50 +80,24 @@ namespace Projekt.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUser(CreateUserModel user)
+        public async Task<IActionResult> CreateUser(CreateUserModel user)
         {
             ViewBag.error = "";
-
-            if (user == null)
+            var u = new UserDTO() { Id = -1, Email = user.Email, Name = user.UserName, PublicId = new Guid() };
+            var adduser = await _userService.CreateAsync(u);
+            if (adduser)
             {
+                return RedirectToAction("Users");
+            }
+            else {
                 ViewBag.error = "Wrong input!";
             }
-            else
-            {
-                if (user.UserName == null || user.UserName == "")
-                {
-                    ViewBag.error = "Wrong input!";
-                }
-                else
-                {
-                    if (user.Password == null || user.Password == "")
-                    {
-                        ViewBag.error = "Wrong input!";
-                    }
-                    else
-                    {
-                        if (user.Email == null || user.Email == "")
-                        {
-                            ViewBag.error = "Wrong input!";
-                        }
-                        else
-                        {
-                            var user1 = new UserEntity() { Id = _context.Users.ToList().Count+1, Name = user.UserName, Email = user.Email, PublicId = Guid.NewGuid() };
-                            _context.Users.Add(user1);
-                            _context.SaveChanges();
-                            ViewBag.error = "idk";
-                            return RedirectToAction("Users");   
-                        }
-                    }
-                }
-            }
-
             return View();
         }
 
-        public IActionResult Update(Guid Id)
+        public async Task<IActionResult> Update(Guid Id)
         {
-            var user = _context.Users.FirstOrDefault(u => u.PublicId == Id);
+            var user = await _userService.GetByPublicIdAsync(Id);
             var model = new UpdateModel(){ Id = Id, UserName = user.Name };
             return View(model);
         }
@@ -131,10 +105,10 @@ namespace Projekt.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UpdateModel user)
         {
-            //var u = new UserDTO() { PublicId = new Guid(), Email = user.Email, Name = user.UserName };
-            //var isCreated = 0;
+            var u = new UserDTO() { PublicId = user.Id, Email = user.Email, Name = user.UserName };
+            var updateuser = await _userService.UpdateAsync(u);
 
-            if (user.Email == null || user.Email == "")
+            if (!updateuser)
             {
                 ViewBag.Error = "Blank input!";
                 var model = new UpdateModel() { Id = user.Id, UserName = user.UserName };
@@ -142,14 +116,9 @@ namespace Projekt.Controllers
             }
             else
             {
-                var u = _context.Users.FirstOrDefault(u => u.PublicId == user.Id);
-                u.Email = user.Email;
-                _context.Update(u);
-                _context.SaveChanges();
                 return RedirectToAction("Users");
             }
         }
-
 
 
     }
