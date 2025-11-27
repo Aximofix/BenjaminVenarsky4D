@@ -44,6 +44,8 @@ namespace Projekt.Controllers
         {
             var userList = await _userService.GetAllAsync();
 
+            var model = new UserViewModel(){ userList = userList };
+
             //var userList = new List<UserEntity>()
             //{
             //    new UserEntity()
@@ -56,7 +58,7 @@ namespace Projekt.Controllers
             //    }
             //};
 
-            return View(userList);
+            return View(model);
         }
 
         [HttpPost]

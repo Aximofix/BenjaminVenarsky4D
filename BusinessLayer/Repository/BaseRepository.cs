@@ -50,6 +50,11 @@ namespace BusinessLayer.Repository
             _context.Set<TEntity>().Remove(entity);
         }
 
+        public virtual void DeleteAll(List<TEntity> entityList)
+        {
+            _context.Set<TEntity>().RemoveRange(entityList);
+        }
+
         public virtual async Task<int> SaveChangesAsync()
         {
             return await _context.SaveChangesAsync();

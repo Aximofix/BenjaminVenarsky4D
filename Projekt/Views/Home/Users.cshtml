@@ -1,34 +1,38 @@
 ﻿@using Common.DTO
 @using UserApp.DataLayer.Entities
 
-@model List<UserDTO>
+@model UserViewModel
 <p style="display: none;">@(ViewBag.i = 1)</p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <td>Id</td>
-            <td>Name</td>
-            <td>Email</td>
-            <td>Update User</td>
-            <td>Delete User</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var user in Model) {
-            
+<form method="post" action="Users">
+    <table class="table">
+        <thead>
             <tr>
-                <td>@(ViewBag.i++)</td>
-                <td><a href="@Url.Action("UserDetail", "Home", new{ userPublicId = user.PublicId } )">@user.Name</a></td>
-                <td>@user.Email</td>
-                <td><a class="lsbtn" href="@Url.Action("Update", "Home", new{ Id = user.PublicId } )">Update</a></td>
-                <td>
-                    <form method="post" action="Users">
-                        <input type="hidden" name="Id" value="@user.PublicId" />
-                        <button type="submit" class="del">Delete</button>
-                    </form>
-                </td>
+                <td>Id</td>
+                <td><button type="submit" class="del">Delete</button></td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Update User</td>
+                <td>Delete User</td>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach(var user in Model.userList) {
+            
+                <tr>
+                    <td>@(ViewBag.i++)</td>
+                    <td><input type="checkbox" name="hsdvb" value="@user.PublicId" onclick="@(() => {Model.selected.Add(user);});" /></td>
+                    <td><a href="@Url.Action("UserDetail", "Home", new{ userPublicId = user.PublicId } )">@user.Name</a></td>
+                    <td>@user.Email</td>
+                    <td><a class="lsbtn" href="@Url.Action("Update", "Home", new{ Id = user.PublicId } )">Update</a></td>
+                    <td>
+                        <form method="post" action="Users">
+                            <input type="hidden" name="Id" value="@user.PublicId" />
+                            <button type="submit" class="del">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
