@@ -7,9 +7,8 @@ using UserApp.DataLayer.Entities;
 
 namespace BusinessLayer.Interfaces.Repository
 {
-    public interface IUserRepository
+    public interface IUserRepository : IBaseRepository<UserEntity>
     {
-        Task<List<UserEntity>> GetAll();
         Task<UserEntity?> GetByIdAsync(string email);
     }
 }

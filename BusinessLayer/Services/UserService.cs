@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Interfaces.Service;
+﻿using BusinessLayer.Interfaces.Repository;
+using BusinessLayer.Interfaces.Service;
 using Common.DTO;
 using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
@@ -14,11 +15,11 @@ namespace BusinessLayer.Services
 {
     public class UserService : IUserService
     {
-        private readonly AppDbContext _context;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(AppDbContext context)
+        public UserService(IUserRepository userRepository)
         {
-            _context = context;
+            _userRepository = userRepository;
         }
 
         public async Task<bool> CreateAsync(UserDTO model)
@@ -28,32 +29,32 @@ namespace BusinessLayer.Services
                 return false;
             }
 
-            var user = new UserEntity() { Id = _context.Users.ToList().Count + 1, PublicId = model.PublicId, Email = model.Email, Name = model.Name };
+            var user = new UserEntity() { PublicId = model.PublicId, Email = model.Email, Name = model.Name };
 
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            await _userRepository.CreateAsync(user);
+            await _userRepository.SaveChangesAsync();
 
             return true;
         }
 
         public async Task<bool> DeleteAsync(Guid publicId)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.PublicId == publicId);
+            var user = await _userRepository.GetByPublicIdAsync(publicId);
 
             if (user == null)
             {
                 return false;
             }
 
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+            _userRepository.Delete(user);
+            await _userRepository.SaveChangesAsync();
 
             return true;
         }
 
         public async Task<List<UserDTO>> GetAllAsync()
         {
-            var userList = await _context.Users.ToListAsync();
+            var userList = await _userRepository.GetAllAsync();
             var userDTOList = new List<UserDTO>();
 
             foreach (var user in userList)
@@ -74,7 +75,7 @@ namespace BusinessLayer.Services
 
         public async Task<UserDTO?> GetByPublicIdAsync(Guid publicId)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.PublicId == publicId);
+            var user = await _userRepository.GetByPublicIdAsync(publicId);
 
             if (user == null)
             {
@@ -99,7 +100,7 @@ namespace BusinessLayer.Services
                 return false;
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.PublicId == model.PublicId);
+            var user = await _userRepository.GetByPublicIdAsync(model.PublicId);
 
             if (user == null)
             {
@@ -108,8 +109,8 @@ namespace BusinessLayer.Services
 
             user.Name = model.Name;
             user.Email = model.Email;
-            _context.Users.Update(user);
-            _context.SaveChanges();
+            _userRepository.Update(user);
+            await _userRepository.SaveChangesAsync();
 
             return true;
         }
