@@ -46,7 +46,7 @@ namespace BusinessLayer.Services
             }
 
             _context.Users.Remove(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return true;
         }
