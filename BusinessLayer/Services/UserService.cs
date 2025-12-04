@@ -55,6 +55,7 @@ namespace BusinessLayer.Services
         public async Task<bool> DeleteAllAsync(List<UserDTO> listOfId)
         {
 
+
             _userRepository.DeleteAll(listOfId);
 
             await _userRepository.SaveChangesAsync();

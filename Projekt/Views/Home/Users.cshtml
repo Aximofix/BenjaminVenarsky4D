@@ -21,7 +21,7 @@
             
                 <tr>
                     <td>@(ViewBag.i++)</td>
-                    <td><input type="checkbox" name="hsdvb" value="@user.PublicId" onclick="@(() => {Model.selected.Add(user);});" /></td>
+                    <td><input type="checkbox" name="hsdvb" value="@user.PublicId" on="@(() => {Model.selected.Add(user);});" /></td>
                     <td><a href="@Url.Action("UserDetail", "Home", new{ userPublicId = user.PublicId } )">@user.Name</a></td>
                     <td>@user.Email</td>
                     <td><a class="lsbtn" href="@Url.Action("Update", "Home", new{ Id = user.PublicId } )">Update</a></td>
