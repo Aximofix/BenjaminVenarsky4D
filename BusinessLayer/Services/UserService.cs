@@ -56,6 +56,7 @@ namespace BusinessLayer.Services
         {
 
             _userRepository.DeleteAll(listOfId);
+
             await _userRepository.SaveChangesAsync();
 
             return true;
