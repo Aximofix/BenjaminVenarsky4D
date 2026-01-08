@@ -9,6 +9,6 @@ namespace BusinessLayer.Interfaces.Repository
 {
     public interface IUserRepository : IBaseRepository<UserEntity>
     {
-        Task<UserEntity?> GetByIdAsync(string email);
+        Task<UserEntity?> GetByEmailAsync(string email);
     }
 }

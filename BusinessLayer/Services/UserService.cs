@@ -55,8 +55,13 @@ namespace BusinessLayer.Services
         public async Task<bool> DeleteAllAsync(List<UserDTO> listOfId)
         {
 
+            var list = new List<UserEntity>(){};
+            foreach (var user in listOfId) {
+                var newuser = new UserEntity() { Email = user.Email, Id = user.Id, Name = user.Name, PublicId = user.PublicId };
+                list.Add(newuser);
+            }
 
-            _userRepository.DeleteAll(listOfId);
+            _userRepository.DeleteAll(list);
 
             await _userRepository.SaveChangesAsync();
 
@@ -124,6 +129,19 @@ namespace BusinessLayer.Services
             await _userRepository.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<List<Guid>> GetAllPublicIdAsync()
+        {
+            var userList = await _userRepository.GetAllAsync();
+            var userDTOList = new List<Guid>();
+
+            foreach (var user in userList)
+            {
+                userDTOList.Add(user.PublicId);
+            }
+
+            return userDTOList;
         }
     }
 }

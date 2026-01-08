@@ -204,3 +204,13 @@ body {
     border-radius: 12px;
     border: none;
 }
+
+.del2 {
+    background-color: red;
+    color: white;
+    width: 150px;
+    padding: 10px 15px;
+    margin: 10px 0px 0px 0px;
+    border-radius: 12px;
+    border: none;
+}

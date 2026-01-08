@@ -19,7 +19,7 @@ namespace BusinessLayer.Repository
             _context = context;
         }
 
-        public async Task<UserEntity?> GetByIdAsync(string email)
+        public async Task<UserEntity?> GetByEmailAsync(string email)
         {
             return await _context.Users.FirstOrDefaultAsync(e => e.Email == email);
         }

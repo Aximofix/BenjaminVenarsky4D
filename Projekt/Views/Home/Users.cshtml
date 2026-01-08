@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <td>Id</td>
-                <td><button type="submit" class="del">Delete</button></td>
+                <td>Select</td>
                 <td>Name</td>
                 <td>Email</td>
                 <td>Update User</td>
@@ -21,7 +21,7 @@
             
                 <tr>
                     <td>@(ViewBag.i++)</td>
-                    <td><input type="checkbox" name="hsdvb" value="@user.PublicId" on="@(() => {Model.selected.Add(user);});" /></td>
+                    <td><input type="checkbox" name=@user.Id id=@user.PublicId value=@user.PublicId/></td>
                     <td><a href="@Url.Action("UserDetail", "Home", new{ userPublicId = user.PublicId } )">@user.Name</a></td>
                     <td>@user.Email</td>
                     <td><a class="lsbtn" href="@Url.Action("Update", "Home", new{ Id = user.PublicId } )">Update</a></td>
@@ -35,4 +35,12 @@
             }
         </tbody>
     </table>
+</form>
+
+
+<button class="del" type="button" id="suse" onclick="Del()">Delete</button>
+<input type="hidden" id="sus" value="@(ViewBag.UList)" />
+<form asp-action="Deletion" method="post">
+    <input type="hidden" name="list" id="here" value=[""] />
+    <button class="del2" style="display: none;" id="suser">Confirm delete</button>
 </form>

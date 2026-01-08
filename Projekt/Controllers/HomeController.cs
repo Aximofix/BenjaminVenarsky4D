@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using BusinessLayer.Interfaces.Service;
 using Common.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -43,8 +44,27 @@ namespace Projekt.Controllers
         public async Task<IActionResult> Users()
         {
             var userList = await _userService.GetAllAsync();
+            var model = new UserViewModel() { userList = userList };
 
-            var model = new UserViewModel(){ userList = userList };
+            var UList = await _userService.GetAllPublicIdAsync();
+
+            ViewBag.UList = "[";
+            foreach (var u in UList)
+            {
+                ViewBag.UList += $"'{u}'" + ",";
+            }
+            var a = "";
+
+            a = ViewBag.UList;
+
+            var i = a.Length;
+
+            ViewBag.UList = a.Substring(0, i - 1);
+            ViewBag.UList += "]";
+
+
+
+            //var model = new UserViewModel();
 
             //var userList = new List<UserEntity>()
             //{
@@ -66,7 +86,44 @@ namespace Projekt.Controllers
         {
             await _userService.DeleteAsync(Id);
             var userList = await _userService.GetAllAsync();
-            return View(userList);
+            var model = new UserViewModel() { userList = userList };
+
+            var UList = await _userService.GetAllPublicIdAsync();
+
+            ViewBag.UList = "[";
+            foreach (var u in UList)
+            {
+                ViewBag.UList += $"'{u}'" + ",";
+            }
+            var a = "";
+
+            a = ViewBag.UList;
+
+            var i = a.Length;
+
+            ViewBag.UList = a.Substring(0, i - 1);
+            ViewBag.UList += "]";
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Deletion(List<string> list)
+        {
+            var userList = await _userService.GetAllAsync();
+            ViewBag.userList = userList.ToList();
+
+            Console.WriteLine("-----------------------------------------HELP----------------------------------------");
+
+            foreach (var user in list)
+            {
+                var a = user.Split(",");
+                foreach (var i in a)
+                {
+                    Console.WriteLine(i);
+                    await _userService.DeleteAsync(new Guid(i));
+                }
+            }
+            return RedirectToAction("Users");
         }
 
         public async Task<IActionResult> UserDetail(Guid userPublicId)
@@ -85,7 +142,7 @@ namespace Projekt.Controllers
         public async Task<IActionResult> CreateUser(CreateUserModel user)
         {
             ViewBag.error = "";
-            var u = new UserDTO() { Id = -1, Email = user.Email, Name = user.UserName, PublicId = new Guid() };
+            var u = new UserDTO() { Id = -1, Email = user.Email, Name = user.UserName, PublicId = Guid.NewGuid() };
             var adduser = await _userService.CreateAsync(u);
             if (adduser)
             {
