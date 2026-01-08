@@ -119,7 +119,7 @@ namespace Projekt.Controllers
                 var a = user.Split(",");
                 foreach (var i in a)
                 {
-                    Console.WriteLine(i);
+                    //Console.WriteLine(i);
                     await _userService.DeleteAsync(new Guid(i));
                 }
             }
