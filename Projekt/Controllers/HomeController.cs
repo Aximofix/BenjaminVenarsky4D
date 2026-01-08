@@ -154,6 +154,29 @@ namespace Projekt.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(CreateUserModel user)
+        {
+            ViewBag.error = "";
+            var u = new UserDTO() { Id = -1, Email = user.Email, Name = user.UserName, PublicId = Guid.NewGuid(), Password = user.Password };
+            var adduser = await _userService.CreateAsync(u);
+            if (adduser)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.error = "Wrong input!";
+            }
+            return View();
+        }
+
         public async Task<IActionResult> Update(Guid Id)
         {
             var user = await _userService.GetByPublicIdAsync(Id);

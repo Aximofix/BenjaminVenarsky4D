@@ -1,0 +1,17 @@
+﻿@model CreateUserModel
+
+<div class="lglayout">
+	<div class="login">
+		<form asp-controller="Home" asp-action="Register" method="post">
+			<h1>Register</h1>
+			<label class="lstxt" asp-for="UserName">Username</label><br />
+			<input class="ls" type="text" name="UserName" id="UserName" /><br />
+			<label class="lstxt" asp-for="Email">Email</label><br />
+			<input class="ls" type="text" name="Email" id="Email" /><br />
+			<label class="lstxt" asp-for="Password">Password</label><br />
+			<input class="ls" type="password" name="Password" id="Password" />
+			<p class="lstxt" id="error" name="error">@ViewBag.Error</p>
+			<button type="submit" class="ls btnn">Send</button>
+		</form>
+	</div>
+</div>

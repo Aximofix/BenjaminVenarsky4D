@@ -7,6 +7,7 @@ namespace UserApp.DataLayer
     {
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<BookEntity> Books { get; set; }
+        public DbSet<UsersEntity> TUsers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
