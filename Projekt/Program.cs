@@ -65,5 +65,10 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+using (var db = new AppDbContext())
+{
+    db.Database.EnsureCreated();
+}
+
 app.Run();
 
